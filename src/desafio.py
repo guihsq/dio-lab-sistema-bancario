@@ -13,13 +13,16 @@ extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
 
-def depositar():
-    valor = float(input("Digite o valor a ser depositado: "))
+def depositar(saldo, valor, extrato,/):
     if valor > 0:
-        return valor
-    if valor <= 0:
+
+        saldo += valor
+        extrato += f"Depósito: R$ {valor:.2f}\n"
+
+        return saldo, extrato
+    
+    else: 
         print("Valor inválido. Tente novamente.")
-        return 0
 
 def sacar(saldo, numero_saques, LIMITE_SAQUES):
     valor = float(input("Digite o valor a ser sacado: "))
@@ -44,11 +47,8 @@ while True:
     opcao = input(menu)
 
     if opcao == 'd':
-        valor_deposito = depositar()
-        if valor_deposito > 0:
-            saldo += valor_deposito
-            extrato += f"Depósito: R$ {valor_deposito:.2f}\n"
-
+        valor = float(input("Digite o valor a ser depositado: "))
+        saldo, extrato = depositar(saldo, valor, extrato)
 
     elif opcao == 's':
         valor_saque = sacar(saldo, numero_saques, LIMITE_SAQUES)
