@@ -24,7 +24,7 @@ nosso sistema precisamos criar duas novas funções: criar usuário (cliente do 
 
 ### Separação em funções
 
-Devemos criar funções para todas as operações do sistema. Para exercitar tudo o que aprendemos neste módulo, cada função vai ter uma regra na passagem de argumentos. O retorno e a forma como serão chamadas, pode ser definida porl você da forma que achar melhor.
+Devemos criar funções para todas as operações do sistema. Para exercitar tudo o que aprendemos neste módulo, cada função vai ter uma regra na passagem de argumentos. O retorno e a forma como serão chamadas, pode ser definida por você da forma que achar melhor.
 
 #### Saque
 
