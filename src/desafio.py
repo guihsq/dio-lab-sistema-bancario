@@ -5,11 +5,17 @@ def menu():
     [d] Depositar
     [s] Sacar
     [e] Extrato
+    [c] Cadastrar Cliente
     [q] Sair
 
     ->"""
 
     return menu
+
+def cadastrar_cliente(clientes, cliente):
+     clientes.append(cliente)
+     print("Cliente cadastrado com sucesso!")
+     return clientes
 
 def depositar(saldo, valor, extrato,/):
     if valor > 0:
@@ -51,6 +57,7 @@ def main():
     extrato = ""
     numero_saques = 0
     LIMITE_SAQUES = 3
+    clientes = []
     
     while True:
         
@@ -67,7 +74,23 @@ def main():
 
         elif opcao == "e":
             imprimir_extrato(saldo, extrato=extrato)
+
+        elif opcao == "c":
             
+            cpf = input("CPF (somente números): ")
+            nome = input("Nome completo: ")
+            nascimento = input("Data de nascimento (dd-mm-aaaa): ")
+            endereco = input("Endereço (logradouro, nro - bairro - cidade/sigla estado): ")
+
+            cliente = {
+                "cpf": cpf,
+                "nome": nome,
+                "nascimento": nascimento,
+                "endereco": endereco
+            }
+
+            clientes = cadastrar_cliente(clientes, cliente)
+
         elif opcao == "q":
             break
 
