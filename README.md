@@ -44,7 +44,7 @@ Precisamos criar duas novas funções: criar usuário e criar conta corrente. Fi
 
 #### Criar usuário (cliente)
 
-O programa deve armazenar os usuários em uma lista, um usuário é composto por: nome, data de nascimento, cpf e endereço. O endereço é uma string com o formato: logradouro, nro - bairro - cidade/sigla estado. Deve ser armazenado bairro n ro somente os números do CPF. Não podemos cadastrar 2 usuários com o mesmo CPF.
+O programa deve armazenar os usuários em uma lista, um usuário é composto por: nome, data de nascimento, cpf e endereço. O endereço é uma string com o formato: logradouro, nro - bairro - cidade/sigla estado. Deve ser armazenado somente os números do CPF. Não podemos cadastrar 2 usuários com o mesmo CPF.
 
 #### Criar contato corrente
 
@@ -54,3 +54,4 @@ fixo: "0001". O usuário pode ter mais de uma conta, mas uma conta pertence a so
 #### Dica
 
 Para vincular um usuário a uma conta, filtre a lista de usuários buscando o número do CPF informado para cada usuário da lista.
+
