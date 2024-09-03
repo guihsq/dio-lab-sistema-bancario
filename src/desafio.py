@@ -6,6 +6,8 @@ def menu():
     [s] Sacar
     [e] Extrato
     [c] Cadastrar Cliente
+    [cc] Cadastrar Conta
+    [lc] Listar Contas
     [q] Sair
 
     ->"""
@@ -14,7 +16,7 @@ def menu():
 
 def cadastrar_cliente(clientes, cliente):
      clientes.append(cliente)
-     print("Cliente cadastrado com sucesso!")
+     print("\nCliente cadastrado com sucesso!")
      return clientes
 
 def depositar(saldo, valor, extrato,/):
@@ -64,6 +66,34 @@ def filtrar_cliente(cpf, clientes):
     else:
         return None
 
+def cadastrar_conta(cpf, contas, clientes):
+
+    AGENCIA = "0001"
+    nConta = len(contas) +1
+    cliente = filtrar_cliente(cpf, clientes)
+
+    if cliente:
+        conta = {"agencia": AGENCIA,
+                 "conta": nConta,
+                 "cliente": cliente}
+        contas.append(conta)
+        
+        print("\nConta cadastrada com sucesso.")
+
+        return contas
+    else:
+        print("\nCliente não encontrado")
+
+def listar_contas(contas):
+    
+    for conta in contas:
+        linha = f"""\
+            Agência:\t{conta['agencia']}
+            C/C:\t\t{conta['conta']}
+            Titular:\t{conta['cliente']['nome']}
+        """
+        print(f"\n{linha}")
+
 def main():
     saldo = 0
     limite = 500
@@ -71,6 +101,7 @@ def main():
     numero_saques = 0
     LIMITE_SAQUES = 3
     clientes = []
+    contas = []
     
     while True:
         
@@ -109,6 +140,15 @@ def main():
                 }
 
                 clientes = cadastrar_cliente(clientes, cliente)
+        
+        elif opcao == "cc":
+            
+            cpf = input("informe o CPF (somente números) para o que deseja criar conta: ")
+            contas = cadastrar_conta(cpf, contas, clientes)
+
+        elif opcao == "lc":
+            
+            listar_contas(contas)
 
         elif opcao == "q":
             break
