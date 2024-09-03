@@ -1,4 +1,4 @@
-## Projeto DIO - Sistema Bancário
+## DESAFIO DIO - Sistema Bancário
 
 ### Desafio
 Fomos contratados por um grande banco para desenvolver o seu novo sistema. Esse banco deseja modernizar suas operações e para isso escolheu a linguagem Python. Para a primeira versão do sistema devemos implementar apenas 3 operações: depósito, saque e extrato.
@@ -16,6 +16,7 @@ Os valores devem ser exibidos utilizando o formato R$ xxx.xx,
 
 exemplo:
 1500.45 = R$ 1500.45
+
 
 ## Otiminzando Sistema Bancário
 
@@ -54,4 +55,5 @@ fixo: "0001". O usuário pode ter mais de uma conta, mas uma conta pertence a so
 #### Dica
 
 Para vincular um usuário a uma conta, filtre a lista de usuários buscando o número do CPF informado para cada usuário da lista.
+
 
