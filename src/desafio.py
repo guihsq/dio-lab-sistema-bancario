@@ -51,6 +51,19 @@ def imprimir_extrato(saldo,/,*, extrato):
     print(f"Saldo: R$ {saldo:.2f}")
     print("\n=====================================")
 
+def filtrar_cliente(cpf, clientes):
+    
+    clientes_filtrados=[]
+
+    for cliente in clientes:
+        if cliente["cpf"] == cpf:
+            clientes_filtrados.append(cliente)
+
+    if clientes_filtrados:
+        return clientes_filtrados[0]
+    else:
+        return None
+
 def main():
     saldo = 0
     limite = 500
@@ -78,18 +91,24 @@ def main():
         elif opcao == "c":
             
             cpf = input("CPF (somente números): ")
-            nome = input("Nome completo: ")
-            nascimento = input("Data de nascimento (dd-mm-aaaa): ")
-            endereco = input("Endereço (logradouro, nro - bairro - cidade/sigla estado): ")
 
-            cliente = {
-                "cpf": cpf,
-                "nome": nome,
-                "nascimento": nascimento,
-                "endereco": endereco
-            }
+            cliente = filtrar_cliente(cpf, clientes)
 
-            clientes = cadastrar_cliente(clientes, cliente)
+            if cliente:
+                print("Cliente já cadastrado")
+            else:
+                nome = input("Nome completo: ")
+                nascimento = input("Data de nascimento (dd-mm-aaaa): ")
+                endereco = input("Endereço (logradouro, nro - bairro - cidade/sigla estado): ")
+
+                cliente = {
+                    "cpf": cpf,
+                    "nome": nome,
+                    "nascimento": nascimento,
+                    "endereco": endereco
+                }
+
+                clientes = cadastrar_cliente(clientes, cliente)
 
         elif opcao == "q":
             break
