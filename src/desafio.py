@@ -144,22 +144,39 @@ class Conta:
     
 class ContaCorrente(Conta):
 
-    def __init__(self, numero, cliente, limite=500, limite_saques=3):
+    def __init__(self, numero, cliente, limite=500, limite_saques=3, limite_transacoes=10):
         super().__init__(numero, cliente)
         self.limite = limite
         self.limite_saques = limite_saques
+        self.limite_transacoes = limite_transacoes
 
     def sacar(self, valor):
         numero_saques = len([transacao for transacao in self.historico.transacoes if transacao["tipo"] == Saque.__name__])
+        numero_transacoes = len(self.historico.transacoes_do_dia())
         excedeu_limite = valor >= self.limite
         excedeu_saques = numero_saques >= self.limite_saques
-
+        excedeu_transacoes = numero_transacoes >= self.limite_transacoes
+        
         if excedeu_limite:
             print("Valor do saque excede o limite")
         elif excedeu_saques:
             print("Excedido número de saques diários.")
+        elif excedeu_transacoes:
+            print("Excedido número de transações")
         else:
             return super().sacar(valor)
+
+        return False
+    
+    def depositar(self, valor):
+        numero_transacoes = len(self.historico.transacoes_do_dia())
+        
+        excedeu_transacoes = numero_transacoes >= self.limite_transacoes
+
+        if excedeu_transacoes:
+            print("Excedido número de transações")
+        else:
+            return super().depositar(valor)
 
         return False
     
@@ -183,6 +200,15 @@ class Historico:
                 "data": datetime.now().strftime("%d-%m-%Y %H:%M:%S")
             }
         )
+    def transacoes_do_dia(self):
+        transacoes_filtradas = []
+
+        for transacao in self.transacoes:
+            dttransacao = datetime.strptime(transacao["data"], "%d-%m-%Y %H:%M:%S")
+            if abs(dttransacao - datetime.now()).days == 0:
+                transacoes_filtradas.append(transacao)
+        
+        return transacoes_filtradas
 
 def filtrar_cliente(cpf, clientes):
     
@@ -311,7 +337,7 @@ def imprimir_extrato(clientes):
         extrato = "Não há movimentação para ser exibida"
     else:
         for transacao in transacoes:
-            extrato += f"\n{transacao["tipo"]}:\n R$ {transacao["valor"]:.2f}"
+            extrato += f"\n{transacao["data"]} {transacao["tipo"]}: R$ {transacao["valor"]:.2f}"
     print(extrato)
     print(f"\nSaldo: R$ {conta.saldo:.2f}")
     print("\n=====================================")
