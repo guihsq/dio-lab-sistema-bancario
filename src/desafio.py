@@ -210,6 +210,13 @@ class Historico:
         
         return transacoes_filtradas
 
+def log_transacao(func):
+    def envelope(*args, **kwargs):
+        resultado = func(*args, **kwargs)
+        print (f"{datetime.now()}: {func.__name__.upper()}")
+        return resultado
+    return envelope
+
 def filtrar_cliente(cpf, clientes):
     
     clientes_filtrados=[]
@@ -245,7 +252,8 @@ def recuperar_conta_cliente(cliente):
         numero_conta = int(input("Informe o número da conta deseja operar: "))
 
         return filtrar_conta(numero_conta, cliente)
-        
+
+@log_transacao        
 def depositar(clientes):
     cpf = input("Informe o CPF do cliente: ")
     cliente = filtrar_cliente(cpf, clientes)
@@ -265,6 +273,7 @@ def depositar(clientes):
     
     cliente.realizar_transacao(conta, transacao)
 
+@log_transacao
 def sacar(clientes):
     cpf = input("Informe o CPF do cliente")
     cliente = filtrar_cliente(cpf, clientes)
@@ -284,6 +293,7 @@ def sacar(clientes):
     
     cliente.realizar_transacao(conta, transacao)
 
+@log_transacao
 def cadastrar_cliente(clientes):
     cpf = input("CPF (somente números): ")
 
@@ -303,6 +313,7 @@ def cadastrar_cliente(clientes):
 
     print("Cliente cadastrado com sucesso")
 
+@log_transacao
 def cadastrar_conta(nro_conta, clientes, contas):
     cpf = input("CPF (somente números): ")
 
